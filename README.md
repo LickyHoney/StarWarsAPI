@@ -16,6 +16,7 @@ Go to root folder
 - npm install
 
 ## To run the project locally
+Go to root folder 
 - npm start
 
 The project is running on (http://localhost:3000)
