@@ -1,17 +1,20 @@
-// Login.tsx
+// Import necessary dependencies and styles
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../AuthService';
 import "bootstrap/dist/css/bootstrap.min.css"
 import "../App.css"
 
+// Define Login functional component
 const Login: React.FC = () => {
+  // Define state variables for username, password, and error messages
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const history = useNavigate();
   const [usernameError, setUsernameError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
+  // Function to handle login process
   const handleLogin = async () => {
     try {
       // Validate username
@@ -21,6 +24,7 @@ const Login: React.FC = () => {
       } else {
         setUsernameError('');
       }
+      // Validate password
       if (password !== 'password') {
         setPasswordError('Password must be "password"');
         return;
@@ -28,6 +32,7 @@ const Login: React.FC = () => {
         setPasswordError('');
       }
 
+      // Perform login operation
       const response = await login(username, password);
       localStorage.setItem('token', response.token);
       history('/starwars');
@@ -37,6 +42,7 @@ const Login: React.FC = () => {
     }
   };
 
+  // Render login form
   return (
     <div>
     <div className="header">
@@ -77,4 +83,5 @@ const Login: React.FC = () => {
   );
 };
 
- export default Login;
+// Export Login component
+export default Login;

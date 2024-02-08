@@ -1,12 +1,16 @@
+// Import necessary dependencies
 import React from 'react';
 
+// Define props interface for Footer component
 interface FooterProps {
     currentPage: number;
     totalPages: number;
     onPageChange: (pageNum: number) => void;
 }
 
+// Footer component
 const Footer: React.FC<FooterProps> = ({ currentPage, totalPages, onPageChange }) => {
+    // Render the footer with pagination buttons
     return (
         <footer className="footer">
             <div className="pagination">
@@ -25,5 +29,5 @@ const Footer: React.FC<FooterProps> = ({ currentPage, totalPages, onPageChange }
 };
 
 
-
+// Export Footer component
 export default Footer;

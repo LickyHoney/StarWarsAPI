@@ -1,15 +1,18 @@
+// Import necessary dependencies
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
 import Pagination from "./Pagination";
 import { login } from '../AuthService';
-import Footer from "./Footer";
 
+
+// Create an instance of axios for making API requests to SWAPI
 const swapi = axios.create({
     baseURL: "https://swapi.dev/api/"
 });
 
+// Define interfaces for Character and Homeworld object
 interface Character {
     name: string;
     height: string;
@@ -30,6 +33,7 @@ interface Homeworld {
 }
 
 const CharacterList: React.FC = () => {
+    // State variables declaration
     const [people, setPeople] = useState<Character[]>([]);
     const [totalPages, setTotalPages] = useState<number>(0);
     const [page, setPage] = useState<number>(1);
@@ -47,8 +51,10 @@ const CharacterList: React.FC = () => {
     const [allCharacters, setAllCharacters] = useState<Character[]>([]);
     const [showHomeworld, setShowHomeworld] = useState(false);
 
+    // Ref for sentinel element used for infinite scrolling
     const sentinelRef = useRef<HTMLDivElement>(null);
 
+    // Fetch characters data from SWAPI
     const fetchPeople = async () => {
         setLoading(true);
         try {
@@ -63,10 +69,12 @@ const CharacterList: React.FC = () => {
         }
     };
 
+    // useEffect to fetch characters data on component mount
     useEffect(() => {
         fetchPeople();
     }, []);
 
+    // useEffect to fetch user data and set username state
     useEffect(() => {
         const fetchUserData = async () => {
             try {
@@ -80,6 +88,7 @@ const CharacterList: React.FC = () => {
         fetchUserData();
     }, []);
 
+    // Function to open modal and fetch homeworld data
     const openModal = async (character: Character) => {
         setSelectedCharacter(character);
         try {
@@ -91,11 +100,13 @@ const CharacterList: React.FC = () => {
         setModalIsOpen(true);
     };
 
+    // Function to close modal
     const closeModal = () => {
         setModalIsOpen(false);
         setHomeworld(null);
     };
 
+    // Function to handle refresh button click
     const handleRefresh = async () => {
         setLoading(true);
         setError(null);
@@ -108,17 +119,20 @@ const CharacterList: React.FC = () => {
         }
     };
 
+    // Function to handle logout button click
     const handleLogout = () => {
         localStorage.removeItem('token');
         history('/login');
     };
 
+    // Function to handle reset button click
     const handleReset = () => {
         setSearchTerm('');
         setFilterType(null);
         setFilterValue(null);
     };
 
+    // Function to filter characters based on selected filter type and value
     const filterCharacter = (character: Character): boolean => {
         switch (filterType) {
             case 'homeworld':
@@ -132,6 +146,7 @@ const CharacterList: React.FC = () => {
         }
     };
 
+    // Function to search and filter characters based on search term and filters
     const searchAndFilterCharacters = () => {
         return people.filter((character) => {
             return (
@@ -141,26 +156,31 @@ const CharacterList: React.FC = () => {
         });
     };
 
+     // Function to handle change in filter type
     const handleFilterChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const selectedFilterType = event.target.value;
         setFilterType(selectedFilterType);
         setFilterValue(null);
     };
 
+    // Function to handle change in filter value
     const handleFilterValueChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const selectedFilterValue = event.target.value;
         setFilterValue(selectedFilterValue);
     };
 
+    // Function to get unique values of a key from character array
     const uniqueValues = (key: keyof Character) => {
         return Array.from(new Set(allCharacters.flatMap((character) => character[key])));
     };
 
+    // Function to extract ID from URL
     const extractIdFromUrl = (url: string): string => {
         const id = url.split('/').filter(Boolean).pop();
         return id ? id : '';
     };
 
+    // useEffect to handle infinite scrolling using IntersectionObserver
     useEffect(() => {
         const sentinel = sentinelRef.current;
 
@@ -181,6 +201,7 @@ const CharacterList: React.FC = () => {
         };
     }, [page, totalPages, loading]);
 
+    // Function to fetch more characters for infinite scrolling
     const fetchMorePeople = async () => {
         setLoading(true);
         try {
@@ -197,10 +218,12 @@ const CharacterList: React.FC = () => {
         }
     };
 
+    // Function to handle page change
     const handlePageChange = (pageNum: number) => {
         setPage(pageNum);
     };
 
+    //Render CharacterList component
     return (
         <div className="container">
             <div className="content">

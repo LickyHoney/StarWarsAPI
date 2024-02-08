@@ -1,17 +1,18 @@
 // authService.ts
 import axios from 'axios';
 
+// Define the base URL for the API
 const API_URL = 'http://localhost:3000';
 
+// Define the shape of the authentication response
 interface AuthResponse {
     token: string;
     username: string;
   }
 
+// Function to handle user login
 export const login = async (username: string, password: string): Promise<{ token: string; username: string }> => {
-//const response = await axios.post<AuthResponse>(`${API_URL}/login`, { username, password });
-//console.log(response);
-//   return response.data.token;
+
 // Simulate a delay to mimic the network request
 await new Promise((resolve) => setTimeout(resolve, 1000));
 
@@ -26,10 +27,9 @@ if (username === 'demo' && password === 'password') {
 }
 };
 
-
+// Function to handle token refresh
 export const refreshToken = async (refreshToken: string): Promise<string> => {
-//   const response = await axios.post<AuthResponse>(`${API_URL}/refresh-token`, { refreshToken });
-//   return response.data.token;
+
 // Simulate a delay to mimic the network request
 await new Promise((resolve) => setTimeout(resolve, 1000));
 
@@ -37,66 +37,3 @@ await new Promise((resolve) => setTimeout(resolve, 1000));
 return 'refreshed-mocked-jwt-token';
 };
 
-// // authService.ts
-// import axios, {AxiosError} from 'axios';
-
-// const API_URL = 'http://localhost:3000';
-
-// interface AuthResponse {
-//   token: string;
-// }
-
-// // export const login = async (username: string, password: string): Promise<string> => {
-// //   try {
-// //     debugger;
-// //     const response = await axios.post<AuthResponse>(`${API_URL}/login`, { username, password });
-// //     console.log(response);
-// //     return response.data.token;
-// //   } catch (error) {
-// //     // Handle login error, e.g., show an error message or throw a specific error
-// //     throw new Error('Login failed. Please check your credentials.');
-// //   }
-// // };
-
-// export const login = async (username: string, password: string): Promise<string> => {
-//     try {
-//       console.log('Sending login request...', { username, password });
-  
-//       const response = await axios.post<AuthResponse>(`${API_URL}/login`, { username, password });
-  
-//       console.log('Login response:', response.data);
-  
-//       return response.data.token;
-//     } catch (error) {
-//       // Check if it's an AxiosError
-//       if (axios.isAxiosError(error)) {
-//         const axiosError = error as AxiosError;
-  
-//         // Check if the server responded with a status code
-//         if (axiosError.response) {
-//           console.error('Login failed. Server responded with:', axiosError.response.status, axiosError.response.data);
-//           throw new Error('Login failed. Please check your credentials.');
-//         } else if (axiosError.request) {
-//           // The request was made but no response was received
-//           console.error('Login request made, but no response received:', axiosError.request);
-//         } else {
-//           // Something went wrong in setting up the request
-//           console.error('Error setting up login request:', axiosError.message);
-//         }
-//       } else {
-//         // Not an AxiosError, log the generic error
-//         console.error('Login failed. Error:', error);
-//       }
-  
-//       throw new Error('Login failed. Please check your credentials.');
-//     }
-//   };
-// export const refreshToken = async (refreshToken: string): Promise<string> => {
-//   try {
-//     const response = await axios.post<AuthResponse>(`${API_URL}/refresh-token`, { refreshToken });
-//     return response.data.token;
-//   } catch (error) {
-//     // Handle refresh token error, similar to login
-//     throw new Error('Token refresh failed. Please try again.');
-//   }
-// };

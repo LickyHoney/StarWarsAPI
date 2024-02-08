@@ -6,10 +6,15 @@ import Logout from './components/Logout';
 import CharacterList from './components/CharacterList';
 import useTokenRefresh from './useTokenRefresh';
 
+// Define the main App component
 const App: React.FC = () => {
+  // Get the initial token from localStorage
   const initialToken = localStorage.getItem('token');
+
+  // Use the useTokenRefresh hook to manage token refresh
   const token = useTokenRefresh(initialToken);
 
+  // Render the App component
   return (
     <Router>
       <Routes>
@@ -28,4 +33,5 @@ const App: React.FC = () => {
   );
 };
 
+// Export the App component
 export default App;
