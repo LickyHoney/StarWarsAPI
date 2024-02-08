@@ -22,8 +22,8 @@ The project is running on (http://localhost:3000)
 
 ## To run the project using Docker
 Go to root folder and type below commands
-docker build -t star-wars-app .
-docker run -p 3000:3000 star-wars-app
+- docker build -t star-wars-app .
+- docker run -p 3000:3000 star-wars-app
 
 
 
