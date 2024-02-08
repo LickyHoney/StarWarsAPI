@@ -13,10 +13,10 @@ Implemented Star Wars Character Application is an interactive web application th
 
 ## To install the project
 Go to root folder 
-npm install
+- npm install
 
 ## To run the project locally
-npm start
+- npm start
 
 The project is running on (http://localhost:3000)
 
